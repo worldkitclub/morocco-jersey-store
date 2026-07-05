@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact - AtlasKits Morocco Jerseys</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        🦁 <span>Atlas</span>Kits
+      </a>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="products.html">Shop</a>
+        <a href="contact.html" class="active">Contact</a>
+        <a href="cart.html" class="cart-icon">
+          🛒
+          <span class="cart-count">0</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="page-header">
+    <h1>Contact Us</h1>
+    <p>We'd love to hear from you</p>
+  </div>
+
+  <div class="contact-page">
+    <div class="contact-info">
+      <div class="contact-item">
+        <div class="icon">📧</div>
+        <h3>Email</h3>
+        <p>contact@atlaskits.ma</p>
+        <p>support@atlaskits.ma</p>
+      </div>
+      <div class="contact-item">
+        <div class="icon">📞</div>
+        <h3>Phone</h3>
+        <p>+212 522-123456</p>
+        <p>Sat-Thu, 9AM-6PM</p>
+      </div>
+      <div class="contact-item">
+        <div class="icon">📍</div>
+        <h3>Location</h3>
+        <p>Casablanca, Morocco</p>
+        <p>Shipping worldwide</p>
+      </div>
+      <div class="contact-item">
+        <div class="icon">💬</div>
+        <h3>Live Chat</h3>
+        <p>Available 24/7</p>
+        <p>Instant support</p>
+      </div>
+    </div>
+
+    <div style="background:white;border-radius:16px;padding:2.5rem;box-shadow:var(--shadow)">
+      <h2 style="margin-bottom:1.5rem">Send us a message</h2>
+      <form onsubmit="event.preventDefault();document.getElementById('msg-sent').style.display='block';this.reset()">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Name</label>
+            <input type="text" required placeholder="Your name">
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" required placeholder="your@email.com">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Subject</label>
+          <select required>
+            <option value="">Select a topic...</option>
+            <option>Order Inquiry</option>
+            <option>Shipping Question</option>
+            <option>Size & Fit</option>
+            <option>Returns & Refunds</option>
+            <option>Wholesale</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Message</label>
+          <textarea rows="5" required placeholder="Tell us how we can help..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-red">Send Message</button>
+        <p id="msg-sent" style="color:var(--green);font-weight:600;margin-top:1rem;display:none">✓ Message sent! We'll get back to you within 24 hours.</p>
+      </form>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        <h3>🦁 AtlasKits</h3>
+        <p>Your trusted source for Morocco national team merchandise. Reprezent the Atlas Lions in style for the 2026 World Cup.</p>
+      </div>
+      <div>
+        <h3>Quick Links</h3>
+        <a href="products.html">Shop All</a>
+        <a href="products.html">Home Jerseys</a>
+        <a href="products.html">Away Jerseys</a>
+        <a href="contact.html">Contact Us</a>
+      </div>
+      <div>
+        <h3>Customer Service</h3>
+        <a href="contact.html">Help & FAQ</a>
+        <a href="contact.html">Shipping Info</a>
+        <a href="contact.html">Returns</a>
+        <a href="contact.html">Size Guide</a>
+      </div>
+      <div>
+        <h3>Contact</h3>
+        <p>contact@atlaskits.ma</p>
+        <p>+212 5XX-XXXXXX</p>
+        <p>Casablanca, Morocco</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 AtlasKits. All rights reserved. Not affiliated with FIFA or the Moroccan Football Federation.</p>
+    </div>
+  </footer>
+
+  <script src="js/products.js"></script>
+  <script src="js/cart.js"></script>
+  <script>updateCartCount()</script>
+</body>
+</html>

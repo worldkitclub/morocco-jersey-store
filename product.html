@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product - AtlasKits Morocco Jerseys</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        🦁 <span>Atlas</span>Kits
+      </a>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="products.html">Shop</a>
+        <a href="contact.html">Contact</a>
+        <a href="cart.html" class="cart-icon">
+          🛒
+          <span class="cart-count">0</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="product-detail" id="product-detail"></div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        <h3>🦁 AtlasKits</h3>
+        <p>Your trusted source for Morocco national team merchandise. Reprezent the Atlas Lions in style for the 2026 World Cup.</p>
+      </div>
+      <div>
+        <h3>Quick Links</h3>
+        <a href="products.html">Shop All</a>
+        <a href="products.html">Home Jerseys</a>
+        <a href="products.html">Away Jerseys</a>
+        <a href="contact.html">Contact Us</a>
+      </div>
+      <div>
+        <h3>Customer Service</h3>
+        <a href="contact.html">Help & FAQ</a>
+        <a href="contact.html">Shipping Info</a>
+        <a href="contact.html">Returns</a>
+        <a href="contact.html">Size Guide</a>
+      </div>
+      <div>
+        <h3>Contact</h3>
+        <p>contact@atlaskits.ma</p>
+        <p>+212 5XX-XXXXXX</p>
+        <p>Casablanca, Morocco</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 AtlasKits. All rights reserved. Not affiliated with FIFA or the Moroccan Football Federation.</p>
+    </div>
+  </footer>
+
+  <script src="js/products.js"></script>
+  <script src="js/cart.js"></script>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const productId = parseInt(params.get('id'));
+    const product = products.find(p => p.id === productId);
+
+    if (!product) {
+      document.getElementById('product-detail').innerHTML = '<div style="text-align:center;padding:4rem"><h2>Product not found</h2><p style="color:var(--gray);margin:1rem 0"><a href="products.html" class="btn btn-red">Back to Shop</a></p></div>';
+    } else {
+      let selectedSize = product.sizes[1] || product.sizes[0];
+      document.getElementById('product-detail').innerHTML = `
+        <img src="${product.image}" alt="${product.name}" class="product-detail-image" onerror="this.src='https://placehold.co/600x700/e0e0e0/666?text=Jersey'">
+        <div class="product-detail-info">
+          <h1>${product.name}</h1>
+          <div style="color:var(--gray);margin-bottom:0.5rem">${product.category}</div>
+          <div class="product-detail-price">
+            $${product.price.toFixed(2)}
+            ${product.originalPrice ? `<span style="font-size:1rem;color:var(--gray);text-decoration:line-through;font-weight:400;margin-left:0.5rem">$${product.originalPrice.toFixed(2)}</span>` : ''}
+          </div>
+          <p class="product-detail-desc">${product.description}</p>
+          <div class="size-selector">
+            <h3>Size</h3>
+            <div class="size-options">
+              ${product.sizes.map(s => `<button class="size-btn ${s === selectedSize ? 'active' : ''}" onclick="selectSize(this,'${s}')">${s}</button>`).join('')}
+            </div>
+          </div>
+          <button class="btn btn-red" onclick="addToCart(${product.id}, selectedSize)" style="width:100%;text-align:center;padding:1rem;font-size:1.1rem">Add to Cart — $${product.price.toFixed(2)}</button>
+        </div>
+      `;
+    }
+
+    function selectSize(el, size) {
+      document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+      el.classList.add('active');
+      selectedSize = size;
+    }
+
+    updateCartCount();
+  </script>
+</body>
+</html>

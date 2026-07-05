@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop - AtlasKits Morocco Jerseys</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        🦁 <span>Atlas</span>Kits
+      </a>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="products.html" class="active">Shop</a>
+        <a href="contact.html">Contact</a>
+        <a href="cart.html" class="cart-icon">
+          🛒
+          <span class="cart-count">0</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="page-header">
+    <h1>All Products</h1>
+    <p>Complete collection of Morocco 2026 World Cup merchandise</p>
+  </div>
+
+  <div class="section">
+    <div class="filters">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="Home">Home</button>
+      <button class="filter-btn" data-filter="Away">Away</button>
+      <button class="filter-btn" data-filter="Third">Third</button>
+      <button class="filter-btn" data-filter="Goalkeeper">Goalkeeper</button>
+      <button class="filter-btn" data-filter="Training">Training</button>
+      <button class="filter-btn" data-filter="Retro">Retro</button>
+      <button class="filter-btn" data-filter="Kids">Kids</button>
+    </div>
+
+    <div class="products-grid" id="products-container"></div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        <h3>🦁 AtlasKits</h3>
+        <p>Your trusted source for Morocco national team merchandise. Reprezent the Atlas Lions in style for the 2026 World Cup.</p>
+      </div>
+      <div>
+        <h3>Quick Links</h3>
+        <a href="products.html">Shop All</a>
+        <a href="products.html">Home Jerseys</a>
+        <a href="products.html">Away Jerseys</a>
+        <a href="contact.html">Contact Us</a>
+      </div>
+      <div>
+        <h3>Customer Service</h3>
+        <a href="contact.html">Help & FAQ</a>
+        <a href="contact.html">Shipping Info</a>
+        <a href="contact.html">Returns</a>
+        <a href="contact.html">Size Guide</a>
+      </div>
+      <div>
+        <h3>Contact</h3>
+        <p>contact@atlaskits.ma</p>
+        <p>+212 5XX-XXXXXX</p>
+        <p>Casablanca, Morocco</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 AtlasKits. All rights reserved. Not affiliated with FIFA or the Moroccan Football Federation.</p>
+    </div>
+  </footer>
+
+  <script src="js/products.js"></script>
+  <script src="js/cart.js"></script>
+  <script>
+    function renderProducts(filter = 'all') {
+      const container = document.getElementById('products-container');
+      const filtered = filter === 'all' ? products : products.filter(p => p.category.toLowerCase() === filter.toLowerCase());
+      container.innerHTML = filtered.map(p => `
+        <div class="product-card">
+          ${p.badge ? `<div class="product-badge ${p.badge === 'Limited' ? 'green' : ''}">${p.badge}</div>` : ''}
+          <a href="product.html?id=${p.id}">
+            <img src="${p.image}" alt="${p.name}" class="product-image" onerror="this.src='https://placehold.co/400x500/e0e0e0/666?text=Jersey'">
+          </a>
+          <div class="product-info">
+            <div class="product-name">${p.name}</div>
+            <div class="product-category">${p.category}</div>
+            <div class="product-price">
+              $${p.price.toFixed(2)}
+              ${p.originalPrice ? `<span class="original">$${p.originalPrice.toFixed(2)}</span>` : ''}
+            </div>
+            <a href="product.html?id=${p.id}" class="btn btn-red btn-sm" style="margin-right:0.5rem">View</a>
+            <button class="btn btn-primary btn-sm" onclick="addToCart(${p.id})">Add to Cart</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        renderProducts(this.dataset.filter);
+      });
+    });
+
+    renderProducts('all');
+    updateCartCount();
+  </script>
+</body>
+</html>

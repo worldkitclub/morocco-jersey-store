@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout - AtlasKits Morocco Jerseys</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        🦁 <span>Atlas</span>Kits
+      </a>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="products.html">Shop</a>
+        <a href="contact.html">Contact</a>
+        <a href="cart.html" class="cart-icon">
+          🛒
+          <span class="cart-count">0</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="page-header">
+    <h1>Checkout</h1>
+    <p>Complete your order</p>
+  </div>
+
+  <div class="checkout-page" id="checkout-page">
+    <div id="checkout-form-container">
+      <div class="order-summary" id="checkout-items"></div>
+
+      <form id="checkout-form" onsubmit="placeOrder(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label>First Name</label>
+            <input type="text" required placeholder="Youssef">
+          </div>
+          <div class="form-group">
+            <label>Last Name</label>
+            <input type="text" required placeholder="El Hamdaoui">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" required placeholder="you@example.com">
+        </div>
+        <div class="form-group">
+          <label>Phone</label>
+          <input type="tel" required placeholder="+212 6XX-XXXXXX">
+        </div>
+        <div class="form-group">
+          <label>Address</label>
+          <input type="text" required placeholder="123 Avenue Mohammed V">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>City</label>
+            <input type="text" required placeholder="Casablanca">
+          </div>
+          <div class="form-group">
+            <label>Country</label>
+            <select required>
+              <option value="">Select country...</option>
+              <option value="MA">Morocco</option>
+              <option value="US">United States</option>
+              <option value="GB">United Kingdom</option>
+              <option value="FR">France</option>
+              <option value="ES">Spain</option>
+              <option value="DE">Germany</option>
+              <option value="IT">Italy</option>
+              <option value="CA">Canada</option>
+              <option value="AE">UAE</option>
+              <option value="SA">Saudi Arabia</option>
+              <option value="QA">Qatar</option>
+              <option value="EG">Egypt</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Payment Method</label>
+          <select required>
+            <option value="">Select payment...</option>
+            <option value="cod">Cash on Delivery</option>
+            <option value="card">Credit/Debit Card</option>
+            <option value="paypal">PayPal</option>
+          </select>
+        </div>
+
+        <div style="background:white;border-radius:16px;padding:2rem;box-shadow:var(--shadow);margin-bottom:2rem">
+          <div class="summary-row total">
+            <span>Total Due</span>
+            <span id="checkout-total">$0.00</span>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-red" style="width:100%;padding:1rem;font-size:1.2rem">Place Order</button>
+        <div style="text-align:center;margin-top:1rem">
+          <a href="cart.html" style="color:var(--gray);text-decoration:none;font-size:0.9rem">← Back to Cart</a>
+        </div>
+      </form>
+    </div>
+
+    <div id="order-confirmed" style="display:none">
+      <div class="message-banner">
+        <div class="icon">✅</div>
+        <h2>Order Placed! 🇲🇦</h2>
+        <p>Thank you for your order. You'll receive a confirmation email shortly with your order details and tracking information.</p>
+        <p style="font-size:0.9rem;color:var(--gray);margin-bottom:2rem">Your order number: #MOR-${Date.now().toString(36).toUpperCase()}</p>
+        <a href="products.html" class="btn btn-red">Continue Shopping</a>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        <h3>🦁 AtlasKits</h3>
+        <p>Your trusted source for Morocco national team merchandise. Reprezent the Atlas Lions in style for the 2026 World Cup.</p>
+      </div>
+      <div>
+        <h3>Quick Links</h3>
+        <a href="products.html">Shop All</a>
+        <a href="products.html">Home Jerseys</a>
+        <a href="products.html">Away Jerseys</a>
+        <a href="contact.html">Contact Us</a>
+      </div>
+      <div>
+        <h3>Customer Service</h3>
+        <a href="contact.html">Help & FAQ</a>
+        <a href="contact.html">Shipping Info</a>
+        <a href="contact.html">Returns</a>
+        <a href="contact.html">Size Guide</a>
+      </div>
+      <div>
+        <h3>Contact</h3>
+        <p>contact@atlaskits.ma</p>
+        <p>+212 5XX-XXXXXX</p>
+        <p>Casablanca, Morocco</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 AtlasKits. All rights reserved. Not affiliated with FIFA or the Moroccan Football Federation.</p>
+    </div>
+  </footer>
+
+  <script src="js/products.js"></script>
+  <script src="js/cart.js"></script>
+  <script>
+    function renderCheckout() {
+      const cart = getCart();
+      const container = document.getElementById('checkout-items');
+      const formContainer = document.getElementById('checkout-form-container');
+      const confirmed = document.getElementById('order-confirmed');
+
+      if (cart.length === 0) {
+        container.innerHTML = '<div style="text-align:center;padding:1rem"><p>Your cart is empty.</p><a href="products.html" class="btn btn-red btn-sm" style="margin-top:1rem">Shop Now</a></div>';
+        document.getElementById('checkout-form').style.display = 'none';
+        return;
+      }
+
+      container.innerHTML = '<h3 style="margin-bottom:1rem">Order Items</h3>' +
+        cart.map(item => {
+          const product = getProduct(item.productId);
+          if (!product) return '';
+          return `<div class="order-item"><span>${product.name} (${item.size}) × ${item.quantity}</span><span>$${(product.price * item.quantity).toFixed(2)}</span></div>`;
+        }).join('');
+
+      const total = getCartTotal();
+      document.getElementById('checkout-total').textContent = `$${total.toFixed(2)}`;
+    }
+
+    function placeOrder(e) {
+      e.preventDefault();
+      document.getElementById('checkout-form-container').style.display = 'none';
+      document.getElementById('order-confirmed').style.display = 'block';
+      localStorage.removeItem('moroccoCart');
+      updateCartCount();
+    }
+
+    renderCheckout();
+    updateCartCount();
+  </script>
+</body>
+</html>

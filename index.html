@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Atlas Kits - Morocco 2026 World Cup Jerseys</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        🦁 <span>Atlas</span>Kits
+      </a>
+      <nav class="nav">
+        <a href="index.html" class="active">Home</a>
+        <a href="products.html">Shop</a>
+        <a href="contact.html">Contact</a>
+        <a href="cart.html" class="cart-icon">
+          🛒
+          <span class="cart-count">0</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">🇲🇦 Official Merchandise 2026</div>
+      <h1>Roar with the <span>Atlas Lions</span></h1>
+      <p>Gear up for Morocco's 2026 World Cup campaign. Premium jerseys, training kits, and apparel shipped worldwide. Reprezent the red and green with pride.</p>
+      <a href="products.html" class="btn btn-primary">Shop Now</a>
+      <a href="products.html" class="btn btn-outline" style="margin-left:1rem">View Collection</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">Featured Jerseys</h2>
+    <p class="section-subtitle">The latest kits for the 2026 campaign</p>
+    <div class="products-grid" id="featured-products"></div>
+    <div style="text-align:center;margin-top:3rem">
+      <a href="products.html" class="btn btn-red">View All Products</a>
+    </div>
+  </section>
+
+  <section class="features">
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">📦</div>
+        <h3>Worldwide Shipping</h3>
+        <p>Free shipping on orders over $100. Delivered to your doorstep.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">✅</div>
+        <h3>Official Merchandise</h3>
+        <p>100% authentic products. Licensed by the Moroccan Football Federation.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔄</div>
+        <h3>Easy Returns</h3>
+        <p>Not happy? Return within 30 days for a full refund.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔒</div>
+        <h3>Secure Checkout</h3>
+        <p>Your payment information is always encrypted and protected.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        <h3>🦁 AtlasKits</h3>
+        <p>Your trusted source for Morocco national team merchandise. Reprezent the Atlas Lions in style for the 2026 World Cup.</p>
+      </div>
+      <div>
+        <h3>Quick Links</h3>
+        <a href="products.html">Shop All</a>
+        <a href="products.html">Home Jerseys</a>
+        <a href="products.html">Away Jerseys</a>
+        <a href="contact.html">Contact Us</a>
+      </div>
+      <div>
+        <h3>Customer Service</h3>
+        <a href="contact.html">Help & FAQ</a>
+        <a href="contact.html">Shipping Info</a>
+        <a href="contact.html">Returns</a>
+        <a href="contact.html">Size Guide</a>
+      </div>
+      <div>
+        <h3>Contact</h3>
+        <p>contact@atlaskits.ma</p>
+        <p>+212 5XX-XXXXXX</p>
+        <p>Casablanca, Morocco</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 AtlasKits. All rights reserved. Not affiliated with FIFA or the Moroccan Football Federation.</p>
+    </div>
+  </footer>
+
+  <script src="js/products.js"></script>
+  <script src="js/cart.js"></script>
+  <script>
+    const featured = products.filter(p => p.badge === 'New' || p.badge === 'Limited').slice(0, 4);
+    document.getElementById('featured-products').innerHTML = featured.map(p => `
+      <div class="product-card">
+        ${p.badge ? `<div class="product-badge ${p.badge === 'Limited' ? 'green' : ''}">${p.badge}</div>` : ''}
+        <a href="product.html?id=${p.id}">
+          <img src="${p.image}" alt="${p.name}" class="product-image" onerror="this.src='https://placehold.co/400x500/e0e0e0/666?text=Jersey'">
+        </a>
+        <div class="product-info">
+          <div class="product-name">${p.name}</div>
+          <div class="product-category">${p.category}</div>
+          <div class="product-price">
+            $${p.price.toFixed(2)}
+            ${p.originalPrice ? `<span class="original">$${p.originalPrice.toFixed(2)}</span>` : ''}
+          </div>
+          <button class="btn btn-red btn-sm" onclick="addToCart(${p.id})">Add to Cart</button>
+        </div>
+      </div>
+    `).join('');
+    updateCartCount();
+  </script>
+</body>
+</html>

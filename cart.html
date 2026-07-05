@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cart - AtlasKits Morocco Jerseys</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        🦁 <span>Atlas</span>Kits
+      </a>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="products.html">Shop</a>
+        <a href="contact.html">Contact</a>
+        <a href="cart.html" class="cart-icon">
+          🛒
+          <span class="cart-count">0</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="page-header">
+    <h1>Shopping Cart</h1>
+    <p>Review your items before checkout</p>
+  </div>
+
+  <div class="cart-page" id="cart-container">
+    <div id="cart-empty" class="cart-empty">
+      <div style="font-size:4rem;margin-bottom:1rem">🛒</div>
+      <h2>Your cart is empty</h2>
+      <p style="color:var(--gray);margin-bottom:2rem">Looks like you haven't added any jerseys yet.</p>
+      <a href="products.html" class="btn btn-red">Continue Shopping</a>
+    </div>
+
+    <div id="cart-full" style="display:none">
+      <div id="cart-items"></div>
+
+      <div class="cart-summary">
+        <h3>Order Summary</h3>
+        <div class="summary-row">
+          <span>Subtotal</span>
+          <span id="cart-subtotal">$0.00</span>
+        </div>
+        <div class="summary-row">
+          <span>Shipping</span>
+          <span>Free</span>
+        </div>
+        <div class="summary-row total">
+          <span>Total</span>
+          <span id="cart-total">$0.00</span>
+        </div>
+        <a href="checkout.html" class="btn btn-red" style="width:100%;text-align:center;padding:1rem;font-size:1.1rem;margin-top:1rem">Proceed to Checkout</a>
+        <div style="text-align:center;margin-top:1rem">
+          <a href="products.html" style="color:var(--gray);text-decoration:none;font-size:0.9rem">Continue Shopping</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        <h3>🦁 AtlasKits</h3>
+        <p>Your trusted source for Morocco national team merchandise. Reprezent the Atlas Lions in style for the 2026 World Cup.</p>
+      </div>
+      <div>
+        <h3>Quick Links</h3>
+        <a href="products.html">Shop All</a>
+        <a href="products.html">Home Jerseys</a>
+        <a href="products.html">Away Jerseys</a>
+        <a href="contact.html">Contact Us</a>
+      </div>
+      <div>
+        <h3>Customer Service</h3>
+        <a href="contact.html">Help & FAQ</a>
+        <a href="contact.html">Shipping Info</a>
+        <a href="contact.html">Returns</a>
+        <a href="contact.html">Size Guide</a>
+      </div>
+      <div>
+        <h3>Contact</h3>
+        <p>contact@atlaskits.ma</p>
+        <p>+212 5XX-XXXXXX</p>
+        <p>Casablanca, Morocco</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 AtlasKits. All rights reserved. Not affiliated with FIFA or the Moroccan Football Federation.</p>
+    </div>
+  </footer>
+
+  <script src="js/products.js"></script>
+  <script src="js/cart.js"></script>
+  <script>
+    renderCartPage();
+  </script>
+</body>
+</html>
