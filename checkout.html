@@ -3,14 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Checkout - AtlasKits Morocco Jerseys</title>
+  <title>Checkout - WKC Morocco Jerseys</title>
   <link rel="stylesheet" href="css/style.css">
+  <script src="https://www.paypal.com/sdk/js?client-id=AdDPjl7S-NHxqJvV3K0-onOzZeGK0HeuOAkSp6iA3kbQcl0m-8KVNPqUTPU-BgHdSW_ZgPI7dGw9zjlO&currency=USD" data-namespace="paypal_sdk"></script>
 </head>
 <body>
   <header class="header">
     <div class="header-inner">
       <a href="index.html" class="logo">
-        🦁 <span>Atlas</span>Kits
+        🦁 WKC
       </a>
       <nav class="nav">
         <a href="index.html">Home</a>
@@ -33,7 +34,7 @@
     <div id="checkout-form-container">
       <div class="order-summary" id="checkout-items"></div>
 
-      <form id="checkout-form" onsubmit="placeOrder(event)">
+      <form id="checkout-form">
         <div class="form-row">
           <div class="form-group">
             <label>First Name</label>
@@ -80,15 +81,7 @@
             </select>
           </div>
         </div>
-        <div class="form-group">
-          <label>Payment Method</label>
-          <select required>
-            <option value="">Select payment...</option>
-            <option value="cod">Cash on Delivery</option>
-            <option value="card">Credit/Debit Card</option>
-            <option value="paypal">PayPal</option>
-          </select>
-        </div>
+        <input type="hidden" name="payment_method" value="paypal">
 
         <div style="background:white;border-radius:16px;padding:2rem;box-shadow:var(--shadow);margin-bottom:2rem">
           <div class="summary-row total">
@@ -97,7 +90,7 @@
           </div>
         </div>
 
-        <button type="submit" class="btn btn-red" style="width:100%;padding:1rem;font-size:1.2rem">Place Order</button>
+        <div id="paypal-button-container" style="margin-top:1rem"></div>
         <div style="text-align:center;margin-top:1rem">
           <a href="cart.html" style="color:var(--gray);text-decoration:none;font-size:0.9rem">← Back to Cart</a>
         </div>
@@ -118,7 +111,7 @@
   <footer class="footer">
     <div class="footer-inner">
       <div>
-        <h3>🦁 AtlasKits</h3>
+        <h3>🦁 WKC</h3>
         <p>Your trusted source for Morocco national team merchandise. Reprezent the Atlas Lions in style for the 2026 World Cup.</p>
       </div>
       <div>
@@ -143,7 +136,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <p>&copy; 2026 AtlasKits. All rights reserved. Not affiliated with FIFA or the Moroccan Football Federation.</p>
+      <p>&copy; 2026 WKC. All rights reserved. Not affiliated with FIFA or the Moroccan Football Federation.</p>
     </div>
   </footer>
 
@@ -153,8 +146,6 @@
     function renderCheckout() {
       const cart = getCart();
       const container = document.getElementById('checkout-items');
-      const formContainer = document.getElementById('checkout-form-container');
-      const confirmed = document.getElementById('order-confirmed');
 
       if (cart.length === 0) {
         container.innerHTML = '<div style="text-align:center;padding:1rem"><p>Your cart is empty.</p><a href="products.html" class="btn btn-red btn-sm" style="margin-top:1rem">Shop Now</a></div>';
@@ -173,8 +164,7 @@
       document.getElementById('checkout-total').textContent = `$${total.toFixed(2)}`;
     }
 
-    function placeOrder(e) {
-      e.preventDefault();
+    function completeOrder() {
       document.getElementById('checkout-form-container').style.display = 'none';
       document.getElementById('order-confirmed').style.display = 'block';
       localStorage.removeItem('moroccoCart');
@@ -183,6 +173,27 @@
 
     renderCheckout();
     updateCartCount();
+
+    if (typeof paypal_sdk !== 'undefined' && getCart().length > 0) {
+      paypal_sdk.Buttons({
+        createOrder: function(data, actions) {
+          const total = getCartTotal();
+          return actions.order.create({
+            purchase_units: [{
+              amount: { value: total.toFixed(2) }
+            }]
+          });
+        },
+        onApprove: function(data, actions) {
+          return actions.order.capture().then(function(details) {
+            completeOrder();
+          });
+        },
+        onError: function(err) {
+          alert('Payment failed. Please try again.');
+        }
+      }).render('#paypal-button-container');
+    }
   </script>
 </body>
 </html>
